@@ -1,37 +1,56 @@
-import React from "react";
 import { useState } from "react";
-import { text } from "stream/consumers";
-import "./App.css";
-import FormInput from "./Components/FormInput";
+import Button from "./Components/Button";
+import FormInput from "./Components/Input";
 
-interface data {
+interface Data {
   cardHolderName: string;
   cardNumber: string;
   month: string;
   year: string;
   cvc: string;
 }
-interface inputData {
+interface ErrorStatus {
+  cardHolderName: boolean;
+  cardNumber: boolean;
+  month: boolean;
+  year: boolean;
+  cvc: boolean;
+}
+interface InputData {
   name: string;
   placeholder: string;
   label: string;
   pattern?: string;
   value: string | number;
   onChange?: any;
-  errorMsg?: string;
   required?: boolean;
 }
 function App() {
-  const [values, setValues] = useState<data>({
+  const defaultValues: Data = {
     cardHolderName: "",
     cardNumber: "",
     month: "",
     year: "",
     cvc: "",
+  };
+
+  const [values, setValues] = useState<Data>(defaultValues);
+
+  const [errors, setErrors] = useState<ErrorStatus>({
+    cardHolderName: false,
+    cardNumber: false,
+    month: false,
+    year: false,
+    cvc: false,
   });
-  const inputs: inputData[] = [
+
+  const errorMessage = "field can not be blank";
+
+  const [screen, setScreen] = useState<"submit" | "completed">("submit");
+
+  const inputs: InputData[] = [
     {
-      name: "cardholderName",
+      name: "cardHolderName",
       value: values.cardHolderName,
       placeholder: "e.g. Jane Appleseed",
       label: "Cardholder Name",
@@ -41,12 +60,14 @@ function App() {
           ...prevState,
           cardHolderName: value,
         }));
+        if (value.length > 0) {
+          errors.cardHolderName = false;
+        }
       },
     },
     {
       name: "cardNumber",
       value: values.cardNumber,
-      errorMsg: "Can’t be blank",
       placeholder: "e.g. 1234 5678 9123 0000",
       label: "Card Number",
       required: true,
@@ -56,13 +77,15 @@ function App() {
           ...prevState,
           cardNumber: formattedValue,
         }));
+        if (value.length > 0) {
+          errors.cardNumber = false;
+        }
       },
     },
     {
       name: "month",
       placeholder: "MM",
       value: values.month,
-      errorMsg: "Can’t be blank",
       label: "Exp. Date (MM/YY)",
       required: true,
       onChange: (value) => {
@@ -71,13 +94,15 @@ function App() {
           ...prevState,
           month: month_Year,
         }));
+        if (value.length > 0) {
+          errors.month = false;
+        }
       },
     },
     {
       name: "year",
       value: values.year,
       label: "year",
-      errorMsg: "Can’t be blank",
       placeholder: "YY",
       required: true,
       onChange: (value) => {
@@ -86,13 +111,15 @@ function App() {
           ...prevState,
           year: month_Year,
         }));
+        if (value.length > 0) {
+          errors.year = false;
+        }
       },
     },
     {
       name: "cvc",
       value: values.cvc,
       placeholder: "e.g. 123",
-      errorMsg: "Can’t be blank",
       label: "CVC",
       required: true,
       onChange: (value) => {
@@ -101,6 +128,9 @@ function App() {
           ...prevState,
           cvc: cvc,
         }));
+        if (value.length > 0) {
+          errors.cvc = false;
+        }
       },
     },
   ];
@@ -120,16 +150,49 @@ function App() {
     const cvc = value.replace(/[^\dA-Z]/g, "").substring(0, 3);
     return cvc;
   }
-  const submit = (e) => {
-    e.preventDefault();
-    if (
-      values.month === "" ||
-      values.year === "" ||
-      values.cvc === "" ||
-      values.cardNumber === "" ||
-      values.cardHolderName === ""
-    ) {
-      console.log("cant be zero");
+  function checkForErrors() {
+    let validInput = true;
+    if (values.month.length < 1) {
+      validInput = false;
+      setErrors((prevState) => ({
+        ...prevState,
+        month: true,
+      }));
+    }
+    if (values.year.length < 1) {
+      validInput = false;
+      setErrors((prevState) => ({
+        ...prevState,
+        year: true,
+      }));
+    }
+    if (values.cvc.length < 1) {
+      validInput = false;
+      setErrors((prevState) => ({
+        ...prevState,
+        cvc: true,
+      }));
+    }
+    if (values.cardNumber.length < 1) {
+      validInput = false;
+      setErrors((prevState) => ({
+        ...prevState,
+        cardNumber: true,
+      }));
+    }
+    if (values.cardHolderName.length < 1) {
+      validInput = false;
+      setErrors((prevState) => ({
+        ...prevState,
+        cardHolderName: true,
+      }));
+    }
+    return validInput;
+  }
+  const submit = () => {
+    let errorFree = checkForErrors();
+    if (errorFree) {
+      setScreen("completed");
     }
   };
   return (
@@ -139,22 +202,34 @@ function App() {
       <p>month:{values.month}</p>
       <p>year:{values.year}</p>
       <p>cvc:{values.cvc}</p>
-      <form onSubmit={submit}>
-        {inputs.map((input, i) => (
-          <FormInput
-            label={input.label}
-            key={i}
-            errorMsg={input.errorMsg}
-            value={input.value}
-            onChange={input.onChange}
+      {screen === "submit" && (
+        <div className="formContainer">
+          {inputs.map((input, i) => (
+            <FormInput
+              label={input.label}
+              key={i}
+              value={input.value}
+              onChange={input.onChange}
+              errorStatus={errors[`${input.name}`]}
+              errorMessage={errorMessage}
+            />
+          ))}
+          <Button label={"submit"} onClick={submit} />
+        </div>
+      )}
+      {screen === "completed" && (
+        <div className="completedContainer">
+          <p>Thank you</p>
+          <Button
+            label={"continue"}
+            onClick={() => {
+              setValues(defaultValues);
+              setScreen("submit");
+            }}
           />
-        ))}
-        <button type="submit" value={"Submit"}>
-          Submit
-        </button>
-      </form>
+        </div>
+      )}
     </div>
   );
 }
-
 export default App;

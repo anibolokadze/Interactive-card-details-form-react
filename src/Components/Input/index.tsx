@@ -1,17 +1,17 @@
-import "./FormInput.css";
-
 interface InputProps {
   label: string;
   onChange: any;
   value: any;
-  errorMsg: string;
+  errorMessage: string;
+  errorStatus: boolean;
 }
 
 export default function FormInput({
   label,
   onChange,
-  errorMsg,
   value,
+  errorMessage,
+  errorStatus,
 }: InputProps) {
   return (
     <div className="formInput">
@@ -22,7 +22,7 @@ export default function FormInput({
           onChange(e.target.value);
         }}
       />
-      <span>{errorMsg}</span>
+      {errorStatus && <p> {errorMessage} </p>}
     </div>
   );
 }
