@@ -5,3 +5,10 @@ $light-grayish-violet: hsl(270, 3%, 87%);
 $dark-grayish-violet: hsl(279, 6%, 55%);
 $very-dark-violet: hsl(278, 68%, 11%);
 $space-grotesk: "Space Grotesk", sans-serif;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: $space-grotesk;
+  font-size: 18px;
+}

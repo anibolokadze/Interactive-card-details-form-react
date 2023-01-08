@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./Components/Button";
 import FormInput from "./Components/Input";
 import style from "./Components/Input/Input.module.scss";
-
+import Card from "./Components/Card";
 interface Data {
   cardHolderName: string;
   cardNumber: string;
@@ -198,11 +198,14 @@ function App() {
   };
   return (
     <div className="app">
-      <p>name:{values.cardHolderName}</p>
-      <p>number:{values.cardNumber}</p>
-      <p>month:{values.month}</p>
-      <p>year:{values.year}</p>
-      <p>cvc:{values.cvc}</p>
+      <Card
+        cardHolderName={values.cardHolderName}
+        cardNumber={values.cardNumber}
+        month={values.month}
+        year={values.year}
+        cvc={values.cvc}
+      />
+
       {screen === "submit" && (
         <div className={style.formContainer}>
           {inputs.map((input, i) => (

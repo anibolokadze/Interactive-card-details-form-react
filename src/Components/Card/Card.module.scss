@@ -1,0 +1,66 @@
+@import "../../variables/variables.module.scss";
+@mixin background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 286px;
+  height: 157px;
+}
+@mixin cardOwner {
+  color: $white;
+  p {
+    font-size: 9px !important;
+  }
+}
+.cardItem {
+  background-image: url(../../assets/images/bg-main-mobile.png);
+  @include background;
+  width: 100%;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  .cardWrapper {
+    width: 342px;
+    margin-bottom: -80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 32px;
+    .cardBack {
+      background-image: url(../../assets/images/bg-card-back.png);
+      @include background;
+      margin-left: 50px;
+    }
+    .cardFront {
+      background-image: url(../../assets/images/bg-card-front.png);
+      @include background;
+      margin: -50px 50px 0 0;
+      padding: 20px;
+      .cardLogo {
+        background-image: url(../../assets/images/card-logo.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 60px;
+        height: 30px;
+      }
+    }
+  }
+}
+.cvc {
+  @include cardOwner;
+  margin-top: 25%;
+  margin-left: 82%;
+}
+.cardNumber {
+  margin-top: 10%;
+  line-height: 23px;
+  letter-spacing: 2.2px;
+}
+.cardDetails {
+  display: flex;
+  justify-content: space-between;
+  @include cardOwner;
+  margin-top: 10%;
+  div {
+    display: flex;
+  }
+}
