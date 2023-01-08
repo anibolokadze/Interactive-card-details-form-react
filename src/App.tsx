@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "./Components/Button";
 import FormInput from "./Components/Input";
+import style from "./Components/Input/Input.module.scss";
 
 interface Data {
   cardHolderName: string;
@@ -44,7 +45,7 @@ function App() {
     cvc: false,
   });
 
-  const errorMessage = "field can not be blank";
+  const errorMessage = "Can't be empty";
 
   const [screen, setScreen] = useState<"submit" | "completed">("submit");
 
@@ -203,7 +204,7 @@ function App() {
       <p>year:{values.year}</p>
       <p>cvc:{values.cvc}</p>
       {screen === "submit" && (
-        <div className="formContainer">
+        <div className={style.formContainer}>
           {inputs.map((input, i) => (
             <FormInput
               label={input.label}
@@ -218,10 +219,10 @@ function App() {
         </div>
       )}
       {screen === "completed" && (
-        <div className="completedContainer">
+        <div className={style.completedContainer}>
           <p>Thank you</p>
           <Button
-            label={"continue"}
+            label={"Continue"}
             onClick={() => {
               setValues(defaultValues);
               setScreen("submit");
