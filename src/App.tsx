@@ -3,29 +3,8 @@ import Button from "./Components/Button";
 import FormInput from "./Components/Input";
 import style from "./Components/Input/Input.module.scss";
 import Card from "./Components/Card";
-interface Data {
-  cardHolderName: string;
-  cardNumber: string;
-  month: string;
-  year: string;
-  cvc: string;
-}
-interface ErrorStatus {
-  cardHolderName: boolean;
-  cardNumber: boolean;
-  month: boolean;
-  year: boolean;
-  cvc: boolean;
-}
-interface InputData {
-  name: string;
-  placeholder: string;
-  label?: string;
-  pattern?: string;
-  value: string | number;
-  onChange?: any;
-  required?: boolean;
-}
+import "./App.css";
+import { Data, ErrorStatus, InputData } from "./Interface";
 function App() {
   const defaultValues: Data = {
     cardHolderName: "",
@@ -36,7 +15,6 @@ function App() {
   };
 
   const [values, setValues] = useState<Data>(defaultValues);
-
   const [errors, setErrors] = useState<ErrorStatus>({
     cardHolderName: false,
     cardNumber: false,
@@ -46,9 +24,7 @@ function App() {
   });
 
   const errorMessage = "Can't be empty";
-
   const [screen, setScreen] = useState<"submit" | "completed">("submit");
-
   const inputs: InputData[] = [
     {
       name: "cardHolderName",
@@ -205,7 +181,6 @@ function App() {
         year={values.year}
         cvc={values.cvc}
       />
-
       {screen === "submit" && (
         <div className={style.formContainer}>
           {inputs.map((input, i) => (

@@ -1,0 +1,7 @@
+@media (min-width: 1440px) {
+  .app {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+}

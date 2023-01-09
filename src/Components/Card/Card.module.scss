@@ -30,6 +30,7 @@
       background-image: url(../../assets/images/bg-card-back.png);
       @include background;
       margin-left: 50px;
+      order: 1;
     }
     .cardFront {
       background-image: url(../../assets/images/bg-card-front.png);
@@ -37,6 +38,7 @@
       margin: -50px 50px 0 0;
       padding: 20px;
       filter: drop-shadow(0px 39px 60px rgba(0, 0, 0, 0.142481));
+      order: 2;
       .cardLogo {
         background-image: url(../../assets/images/card-logo.svg);
         background-repeat: no-repeat;
@@ -65,5 +67,21 @@
   margin-top: 10%;
   div {
     display: flex;
+  }
+}
+@media (min-width: 1440px) {
+  .cardItem {
+    width: 30vw;
+    height: 100vh;
+    .cardBack {
+      order: 2 !important;
+      margin-left: 123% !important;
+      margin-top: 37px;
+    }
+    .cardFront {
+      order: 1 !important;
+      margin-top: 180px !important;
+      margin-left: 105% !important;
+    }
   }
 }
