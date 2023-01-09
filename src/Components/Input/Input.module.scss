@@ -1,4 +1,52 @@
 @import "../../variables/variables.module.scss";
-// .formContainer {
-//   background-color: $very-dark-violet;
-// }
+.formContainer {
+  max-width: 327px;
+  margin: 0 auto;
+  margin-top: 90px;
+}
+.formInput {
+  label {
+    font-size: 12px !important;
+    margin-bottom: 9px;
+  }
+  input {
+    cursor: pointer;
+    width: 327px;
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid $dark-grayish-violet;
+    box-shadow: none;
+    padding-left: 16px;
+  }
+}
+.error {
+  color: $red-input-errors;
+  font-size: 12px;
+}
+.completedContainer {
+  max-width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 24px;
+  margin: 0px auto;
+  .completedContainerWrapper {
+    background-color: red;
+    background: url("../../assets/images/icon-complete.svg");
+    padding-top: 91px;
+    background-repeat: no-repeat;
+    margin-top: 91px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-position: top;
+    .thankYou {
+      font-size: 28px !important;
+      padding: 35px 0 16px 0;
+    }
+    .details {
+      color: $dark-grayish-violet;
+    }
+  }
+}

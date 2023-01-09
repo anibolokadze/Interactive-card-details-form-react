@@ -20,7 +20,7 @@ interface ErrorStatus {
 interface InputData {
   name: string;
   placeholder: string;
-  label: string;
+  label?: string;
   pattern?: string;
   value: string | number;
   onChange?: any;
@@ -103,7 +103,7 @@ function App() {
     {
       name: "year",
       value: values.year,
-      label: "year",
+      label: "YEAR",
       placeholder: "YY",
       required: true,
       onChange: (value) => {
@@ -212,25 +212,29 @@ function App() {
             <FormInput
               label={input.label}
               key={i}
+              placeholder={input.placeholder}
               value={input.value}
               onChange={input.onChange}
               errorStatus={errors[`${input.name}`]}
               errorMessage={errorMessage}
             />
           ))}
-          <Button label={"submit"} onClick={submit} />
+          <Button label={"Confirm"} onClick={submit} />
         </div>
       )}
       {screen === "completed" && (
         <div className={style.completedContainer}>
-          <p>Thank you</p>
-          <Button
-            label={"Continue"}
-            onClick={() => {
-              setValues(defaultValues);
-              setScreen("submit");
-            }}
-          />
+          <div className={style.completedContainerWrapper}>
+            <p className={style.thankYou}>THANK YOU!</p>
+            <p className={style.details}>We’ve added your card details</p>
+            <Button
+              label={"Continue"}
+              onClick={() => {
+                setValues(defaultValues);
+                setScreen("submit");
+              }}
+            />
+          </div>
         </div>
       )}
     </div>

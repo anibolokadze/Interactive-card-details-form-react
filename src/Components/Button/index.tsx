@@ -1,5 +1,4 @@
-import React from "react";
-
+import "../Button/Button.module.scss";
 interface ButtonProps {
   label: string;
   onClick: () => void;
