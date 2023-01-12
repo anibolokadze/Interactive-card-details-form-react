@@ -1,6 +1,6 @@
 # 🎉 Interactive card form 
 
-built with react, typescript and scss.
+Built with react, typescript and scss.
 
 ![desktop-design](https://user-images.githubusercontent.com/89190087/212184758-f4dd3bf5-af4d-4dea-9196-37064fd9da61.jpg)
 
