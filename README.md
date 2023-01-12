@@ -1,5 +1,3 @@
-Live URL: https://form-anibolokadze.vercel.app/
-
 # 🎉 Interactive card form built with react, typescript and scss.
 
 ![mobile-design](https://user-images.githubusercontent.com/89190087/212183474-37d1f453-501b-463f-95b4-7b96f52d03b2.jpg)
